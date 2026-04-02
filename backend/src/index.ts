@@ -25,7 +25,7 @@ app.use(
 
 // ✅ Connect to MongoDB
 
-console.log(process.env.DATABASE_URL);
+
 connectDB();
 
 
@@ -33,7 +33,7 @@ connectDB();
 app.use((req, res, next) => {
   const error = new NotFoundError(`Cannot ${req.method} ${req.url}`)
   next(error);
-  
+
 })
 
 //errorHandler should be registered last

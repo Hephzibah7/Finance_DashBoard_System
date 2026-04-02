@@ -15,7 +15,6 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 // ✅ Connect to MongoDB
-console.log(process.env.DATABASE_URL);
 connectDB();
 // Handle 404 (must be before error handler)
 app.use((req, res, next) => {
