@@ -2,13 +2,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
-
-
 
 
 
 dotenv.config();  
+
+import { connectDB } from "./configs/db.js";
 
 const app = express();
 app.use(express.json());
@@ -26,6 +25,7 @@ app.use(
 
 // ✅ Connect to MongoDB
 
+console.log(process.env.DATABASE_URL);
 connectDB();
 
 

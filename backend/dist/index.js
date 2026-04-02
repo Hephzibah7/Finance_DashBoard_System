@@ -2,8 +2,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
 dotenv.config();
+import { connectDB } from "./configs/db.js";
 const app = express();
 app.use(express.json());
 const FRONTEND_URL = "http://localhost:3000";
@@ -13,6 +13,7 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 // ✅ Connect to MongoDB
+console.log(process.env.DATABASE_URL);
 connectDB();
 //errorHandler should be registered last
 // app.use(errorHandler);

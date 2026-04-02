@@ -25,7 +25,8 @@
     "mongoose": "^8.19.1",
     "multer": "^2.0.2",
     "path": "^0.12.7",
-    "url": "^0.11.4"
+    "url": "^0.11.4",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
