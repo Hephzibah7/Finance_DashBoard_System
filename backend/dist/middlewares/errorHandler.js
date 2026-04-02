@@ -13,7 +13,7 @@ class ErrorLogger {
         LogErrors.log({
             private: true,
             level: 'error',
-            message: `${new Date()}-${JSON.stringify(err)}`,
+            message: `${new Date()} - ${err.message}`,
             stack: err.stack
         });
         console.log('==================== End Error Logger ===============');
@@ -31,12 +31,6 @@ class ErrorLogger {
 }
 const errorHandler = async (err, req, res, next) => {
     const errorLogger = new ErrorLogger();
-    process.on('uncaughtException', (error) => {
-        errorLogger.logError(error);
-        if (errorLogger.isTrustError(err)) {
-            //process exist // need restart
-        }
-    });
     // console.log(err.description, '-------> DESCRIPTION')
     // console.log(err.message, '-------> MESSAGE')
     // console.log(err.name, '-------> NAME')
@@ -55,6 +49,5 @@ const errorHandler = async (err, req, res, next) => {
             error: { message: err.message }
         });
     }
-    next();
 };
 export default errorHandler;

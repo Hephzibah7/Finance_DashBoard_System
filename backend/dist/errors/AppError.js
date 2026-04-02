@@ -25,10 +25,22 @@ export class APIError extends AppError {
         super('API_ERROR', STATUS_CODES.INTERNAL_ERROR, 'Internal Server Error', false, logError);
     }
 }
+//404-NotFoundError
+export class NotFoundError extends AppError {
+    constructor(description, logError) {
+        super('NOT_FOUND_ERROR', STATUS_CODES.NOT_FOUND, description, true, logError);
+    }
+}
 // 400 — Bad Request
 export class BadRequestError extends AppError {
     constructor(description, logError) {
         super('BAD_REQUEST', STATUS_CODES.BAD_REQUEST, description, true, logError);
+    }
+}
+//403 Unauthroized error
+export class UnauthorizedError extends AppError {
+    constructor(description, logError) {
+        super('UN_AUTHORIZED_ERROR', STATUS_CODES.UN_AUTHORISED, description, true, logError);
     }
 }
 // 400 — Validation Error

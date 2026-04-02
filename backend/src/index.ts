@@ -2,8 +2,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-
-
+import errorHandler from "./middlewares/errorHandler.js";
+import { NotFoundError } from "./errors/AppError.js";
 
 dotenv.config();  
 
@@ -29,9 +29,15 @@ console.log(process.env.DATABASE_URL);
 connectDB();
 
 
+// Handle 404 (must be before error handler)
+app.use((req, res, next) => {
+  const error = new NotFoundError(`Cannot ${req.method} ${req.url}`)
+  next(error);
+  
+})
 
 //errorHandler should be registered last
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // ✅ Start the server
 const port = 9002;

@@ -4,6 +4,7 @@ const STATUS_CODES = {
   UN_AUTHORISED: 403,
   NOT_FOUND: 404,
   INTERNAL_ERROR: 500,
+  
 };
 
 export class AppError extends Error {
@@ -47,6 +48,20 @@ export class APIError extends AppError {
   }
 }
 
+//404-NotFoundError
+export class NotFoundError extends AppError{
+    constructor(description:string, logError?:unknown){
+        super(
+            'NOT_FOUND_ERROR',
+            STATUS_CODES.NOT_FOUND,
+            description,
+            true,
+            logError
+
+        )
+    }
+}
+
 // 400 — Bad Request
 export class BadRequestError extends AppError {
   constructor(description:string, logError?: unknown) {
@@ -58,6 +73,21 @@ export class BadRequestError extends AppError {
       logError
     );
   }
+}
+
+//403 Unauthroized error
+
+export class UnauthorizedError extends AppError{
+    constructor(description:string, logError?:unknown){
+        super(
+            'UN_AUTHORIZED_ERROR',
+            STATUS_CODES.UN_AUTHORISED,
+            description,
+            true,
+            logError
+
+        )
+    }
 }
 
 // 400 — Validation Error

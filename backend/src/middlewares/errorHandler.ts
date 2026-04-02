@@ -18,7 +18,7 @@ class ErrorLogger {
         LogErrors.log({
             private: true,
             level: 'error',
-            message: `${new Date()}-${JSON.stringify(err)}`,
+            message: `${new Date()} - ${err.message}`,
             stack:err.stack
             
           });
@@ -40,13 +40,6 @@ class ErrorLogger {
 const errorHandler = async(err:AppError,req:Request,res:Response,next:NextFunction) => {
     
     const errorLogger = new ErrorLogger();
-
-    process.on('uncaughtException', (error) => {
-        errorLogger.logError(error);
-        if(errorLogger.isTrustError(err)){
-            //process exist // need restart
-        }
-    })
     
     // console.log(err.description, '-------> DESCRIPTION')
     // console.log(err.message, '-------> MESSAGE')
@@ -69,7 +62,7 @@ const errorHandler = async(err:AppError,req:Request,res:Response,next:NextFuncti
   })
 }
 
-    next();
+    
 }
 
 export default  errorHandler;
