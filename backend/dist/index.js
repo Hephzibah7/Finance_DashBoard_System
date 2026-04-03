@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/errorHandler.js";
-import authRouter from "./routes/authRoute.js";
+import authRoute from "./routes/authRoute.js";
 import { connectDB } from "./configs/db.js";
 dotenv.config();
 const app = express();
@@ -13,7 +13,7 @@ app.use(cors({
     credentials: true,
 }));
 // ✅ Routes FIRST
-app.use('/api/auth', authRouter);
+app.use('/api', authRoute);
 // ❌ 404 AFTER routes
 // app.use((req, res, next) => {
 //   next(new NotFoundError(`Cannot ${req.method} ${req.url}`));

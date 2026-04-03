@@ -21,9 +21,9 @@ export class AppError extends Error {
     }
 }
 // 500 — API / unexpected errors
-export class APIError extends AppError {
+export class InternalServerError extends AppError {
     constructor(logError) {
-        super('API_ERROR', STATUS_CODES.INTERNAL_ERROR, 'Internal Server Error', false, logError);
+        super('API_ERROR', STATUS_CODES.INTERNAL_ERROR, 'Internal Server Error', true, logError);
     }
 }
 //404-NotFoundError

@@ -7,6 +7,7 @@ import { BadRequestError } from "../errors/AppError.js";
 
 async function login(req:Request, res:Response, next:NextFunction){
     try{
+        
         const {email, password}= req.body;
         const isExist = await User.findOne({email});
         if(!isExist) throw new BadRequestError("User does not exist");
@@ -14,7 +15,7 @@ async function login(req:Request, res:Response, next:NextFunction){
             email,
             password
         }
-        const userCredentials=await authRepositary.loginUser(data,next);
+        const userCredentials=await authRepositary.loginUser(data);
         res.status(201).json({
         user:userCredentials,
         success:true,
@@ -23,7 +24,7 @@ async function login(req:Request, res:Response, next:NextFunction){
     }
     catch(error)
     {
-        next();
+        return next(error);
     }
 }
 

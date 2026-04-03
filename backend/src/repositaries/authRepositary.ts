@@ -1,13 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import {validationResult} from 'express-validator'
 import User from "../models/userModel.js";
-import { BadRequestError } from "../errors/AppError.js";
+import { BadRequestError, InternalServerError } from "../errors/AppError.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import loginType from "../types/loginType.js";
 
-async function loginUser(user:loginType, next:NextFunction){
-    try{
+async function loginUser(user:loginType){
+    
         const {email, password}=user;
         const existingUser=await User.findOne({email});
         if(!existingUser) throw new BadRequestError("User not Found");
@@ -15,10 +14,15 @@ async function loginUser(user:loginType, next:NextFunction){
         const isPasswordValid=await bcrypt.compare(password, existingUser.password);
         if(!isPasswordValid) throw new BadRequestError("Invalid Credentials");
         
-        const token=jwt.sign({userId:existingUser._id}, process.env.SECRET_TYPE as string,{
+        const key=process.env.SECRET_KEY as string;
+        
+
+        const token=jwt.sign({userId:existingUser._id}, key,{
             expiresIn:"1h",
         });
-        console.log(token);
+
+        if(!token) throw new InternalServerError();
+        console.log("token" +  token);
 
         const userCredentials={
             name:existingUser.name,
@@ -28,10 +32,7 @@ async function loginUser(user:loginType, next:NextFunction){
 
         return userCredentials;
 
-    }   
-    catch(error){
-        next(error);
-    }
+    
 }
 
 const authRepositary={

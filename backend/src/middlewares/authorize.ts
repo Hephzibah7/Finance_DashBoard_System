@@ -10,6 +10,7 @@ const authorize = (requiredPermission:string) => {
 
     const user = await User.findById(req.user) as userType;
 
+
     if(user.role.name==ADMIN){
       return next();
     }

@@ -11,7 +11,7 @@ async function login(req, res, next) {
             email,
             password
         };
-        const userCredentials = await authRepositary.loginUser(data, next);
+        const userCredentials = await authRepositary.loginUser(data);
         res.status(201).json({
             user: userCredentials,
             success: true,
@@ -19,7 +19,7 @@ async function login(req, res, next) {
         });
     }
     catch (error) {
-        next();
+        return next(error);
     }
 }
 const authController = {
