@@ -1,30 +1,36 @@
-// src/server.ts
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/errorHandler.js";
-import { NotFoundError } from "./errors/AppError.js";
-dotenv.config();
+import authRouter from "./routes/authRoute.js";
 import { connectDB } from "./configs/db.js";
+dotenv.config();
 const app = express();
 app.use(express.json());
 const FRONTEND_URL = "http://localhost:3000";
 app.use(cors({
     origin: FRONTEND_URL,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
 }));
-// ✅ Connect to MongoDB
-connectDB();
-// Handle 404 (must be before error handler)
-app.use((req, res, next) => {
-    const error = new NotFoundError(`Cannot ${req.method} ${req.url}`);
-    next(error);
-});
-//errorHandler should be registered last
+// ✅ Routes FIRST
+app.use('/api/auth', authRouter);
+// ❌ 404 AFTER routes
+// app.use((req, res, next) => {
+//   next(new NotFoundError(`Cannot ${req.method} ${req.url}`));
+// });
+// ✅ Error handler LAST
 app.use(errorHandler);
-// ✅ Start the server
 const port = 9002;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+// ✅ Start server AFTER DB
+const startServer = async () => {
+    try {
+        await connectDB();
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
+    }
+    catch (err) {
+        console.error(err);
+    }
+};
+startServer();

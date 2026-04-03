@@ -3,7 +3,7 @@ import winston from "winston";
 const LogErrors = winston.createLogger({
     transports: [
         new winston.transports.Console(),
-        new winston.transports.File({ filename: 'app_error.log' })
+        new winston.transports.File({ filename: 'logs/app_error.log' })
     ]
 });
 class ErrorLogger {

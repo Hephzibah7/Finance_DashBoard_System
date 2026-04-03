@@ -16,7 +16,7 @@ export const connectDB = async () => {
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 10000, // fail faster if unreachable
         } as mongoose.ConnectOptions);
-        console.log("MongoDB connected");
+        console.log("Connected to DB:", mongoose.connection.name);
     }
     catch (err) {
         console.error("MongoDB connection error:", err);
