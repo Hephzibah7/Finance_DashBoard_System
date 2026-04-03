@@ -1,0 +1,34 @@
+import { Request, Response, NextFunction } from "express";
+import {validationResult} from 'express-validator'
+import authRepositary from "../repositaries/authRepositary.js";
+import loginType from "../types/loginType.js";
+import User from "../models/userModel.js";
+import { BadRequestError } from "../errors/AppError.js";
+
+async function login(req:Request, res:Response, next:NextFunction){
+    try{
+        const {email, password}= req.body;
+        const isExist = await User.findOne({email});
+        if(!isExist) throw new BadRequestError("User does not exist");
+        var data={
+            email,
+            password
+        }
+        const userCredentials=await authRepositary.loginUser(data,next);
+        res.status(201).json({
+        user:userCredentials,
+        success:true,
+        message:"Login successful"
+       })
+    }
+    catch(error)
+    {
+        next();
+    }
+}
+
+const authController={
+    login:login
+}
+
+export default authController

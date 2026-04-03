@@ -1,9 +1,10 @@
 const STATUS_CODES = {
   OK: 200,
   BAD_REQUEST: 400,
-  UN_AUTHORISED: 403,
+  UN_AUTHORISED: 401,
   NOT_FOUND: 404,
   INTERNAL_ERROR: 500,
+  FORBIDDEN_ERROR: 403
   
 };
 
@@ -77,7 +78,7 @@ export class BadRequestError extends AppError {
   }
 }
 
-//403 Unauthroized error
+//401 Unauthorized error
 
 export class UnauthorizedError extends AppError{
     constructor(description:string, logError?:unknown){
@@ -91,6 +92,22 @@ export class UnauthorizedError extends AppError{
         )
     }
 }
+
+//403 Forbidden error
+
+export class ForbiddenError extends AppError{
+    constructor(description:string, logError?:unknown){
+        super(
+            'FORBIDDEN_ERROR',
+            STATUS_CODES.UN_AUTHORISED,
+            description,
+            true,
+            logError
+
+        )
+    }
+}
+
 
 // 400 — Validation Error
 export class ValidationError extends AppError {
