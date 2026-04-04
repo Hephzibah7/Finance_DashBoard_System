@@ -17,11 +17,14 @@ async function createUser(data:userType){
 }
 
 async function deleteUser(userId:string){
-   
+   const isExist=await User.findById(userId);
+    if(!isExist) throw new BadRequestError("User Does not Exist");
     await User.findByIdAndDelete(userId);
 }
 
 async function updateRole(userId:string, role:string){
+    const isExist=await User.findById(userId);
+    if(!isExist) throw new BadRequestError("User Does not Exist");
     const roleData=await Role.findOne({name:role});
     const user=await User.findByIdAndUpdate(userId, 
         {role:roleData?._id},

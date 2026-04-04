@@ -1,3 +1,4 @@
+import { BadRequestError } from "../errors/AppError.js";
 import Record from "../models/recordModel.js";
 import recordType from "../types/recordType.js";
 
@@ -12,9 +13,13 @@ async function getAllRecord(userId:string, filters:any){
 }
 
 async function deleteRecord(recordId:string){
+    const isExist = await Record.findById(recordId);
+    if(!isExist) throw new BadRequestError("Record does not Exist");
     await Record.findByIdAndDelete(recordId);
 }
 async function updateRecord(recordId:string, data:any){
+     const isExist = await Record.findById(recordId);
+    if(!isExist) throw new BadRequestError("Record does not Exist");
     await Record.findByIdAndUpdate(recordId,
         data,
         {new:true}
