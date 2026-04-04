@@ -18,7 +18,7 @@ async function createUser(req, res, next) {
 async function deleteUser(req, res, next) {
     try {
         const userId = req.params.id;
-        const data = await userRepositary.deleteUser(userId);
+        await userRepositary.deleteUser(userId);
         res.status(201).json({
             success: true,
             message: "User deleted successfully!"

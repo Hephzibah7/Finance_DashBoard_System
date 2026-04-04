@@ -18,7 +18,7 @@ export const createUserValidator = [
         .notEmpty()
         .withMessage('Role is Required.')
         .custom((value) => {
-        if (value === 'analyst' || value === 'viewer')
+        if (value === ANALYST || value === VIEWER)
             return true;
         throw new BadRequestError('Invalid role. Only analyst, viewer allowed');
     }),

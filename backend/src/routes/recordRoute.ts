@@ -1,0 +1,15 @@
+import express from "express";
+import verifyToken from "../middlewares/verifyToken.js";
+import authorize from "../middlewares/authorize.js";
+import validate from "../middlewares/validate.js";
+import { PERMISSIONS } from "../utils/permissions.js";
+import recordController from "../controllers/recordController.js";
+
+
+const router=express.Router();
+router.post("/", verifyToken, authorize(PERMISSIONS.CREATE_RECORDS), validate, recordController.createRecord);
+router.get("/", verifyToken, authorize(PERMISSIONS.VIEW_RECORDS), validate, recordController.getAllRecord);
+router.delete("/:id", verifyToken, authorize(PERMISSIONS.DELETE_RECORDS), validate, recordController.deleteRecord);
+
+
+export default router;
