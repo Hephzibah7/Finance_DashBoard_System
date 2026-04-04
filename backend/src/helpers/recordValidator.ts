@@ -1,4 +1,4 @@
-import { ENTERTAINMENT, EXPENSE, FOOD,INCOME } from "../utils/constants.js";
+import { ENTERTAINMENT, EXPENSE, FOOD,INCOME, INVESTMENT, PROPERTY, SALARY } from "../utils/constants.js";
 import { BadRequestError } from "../errors/AppError.js";
 import { check } from 'express-validator';
 import { HEALTH } from "../utils/constants.js";
@@ -22,7 +22,7 @@ export const createRecordValidator = [
     .notEmpty()
     .withMessage('Type of the category is Required.')
     .custom((value) => {
-      if (value === FOOD || value === ENTERTAINMENT || value === HEALTH) return true;
+      if (value === FOOD || value === ENTERTAINMENT || value === HEALTH || value === SALARY || value === INVESTMENT || value === PROPERTY) return true;
 
       throw new BadRequestError('Invalid type');
     }),

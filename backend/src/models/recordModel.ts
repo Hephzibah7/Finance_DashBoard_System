@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ENTERTAINMENT, EXPENSE, FOOD, HEALTH, INCOME } from "../utils/constants.js";
+import { ENTERTAINMENT, EXPENSE, FOOD, HEALTH, INCOME, INVESTMENT, PROPERTY, SALARY } from "../utils/constants.js";
 
 
 const recordSchema=new mongoose.Schema({
@@ -14,7 +14,7 @@ const recordSchema=new mongoose.Schema({
       },
     category:{
         type:String,
-        enum:[FOOD, ENTERTAINMENT, HEALTH]
+        enum:[FOOD, ENTERTAINMENT, HEALTH, SALARY, PROPERTY, INVESTMENT]
     },
     date:{
         type:Date

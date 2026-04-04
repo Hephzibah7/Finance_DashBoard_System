@@ -8,3 +8,6 @@ export const INCOME = "INCOME";
 export const FOOD = "FOOD";
 export const ENTERTAINMENT = "ENTERTAINMENT";
 export const HEALTH = "HEALTH";
+export const SALARY = "SALARY";
+export const PROPERTY = "PROPERTY";
+export const INVESTMENT = "INVESTMENT";
