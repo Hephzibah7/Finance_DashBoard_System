@@ -1,5 +1,7 @@
 import { check } from 'express-validator';
 import { BadRequestError } from '../errors/AppError.js';
+import { param } from 'express-validator';
+import { ANALYST, VIEWER } from '../utils/constants.js';
 
 export const createUserValidator = [
   check('email', 'Please Enter a valid E-mail Address')
@@ -27,8 +29,11 @@ export const createUserValidator = [
 ];
 
 
-import { param } from 'express-validator';
-import { ANALYST, VIEWER } from '../utils/constants.js';
+export const deleteUserValidator = [
+  param('id')
+  .notEmpty()
+  .withMessage('User Id is required')
+]
 
 export const updateRoleValidator = [
   param('role')

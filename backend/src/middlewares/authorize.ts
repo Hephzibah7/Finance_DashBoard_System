@@ -2,16 +2,19 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/userModel.js";
 import userType from "../types/userType.js";
-import { ForbiddenError } from "../errors/AppError.js";
+import { BadRequestError, ForbiddenError, InternalServerError } from "../errors/AppError.js";
 import { ADMIN } from "../utils/constants.js";
+import Role from "../models/roleModel.js";
 
 const authorize = (requiredPermission:string) => {
   return async (req:Request, res:Response, next:NextFunction) => {
 
     const user = await User.findById(req.user) as userType;
-
-
-    if(user.role.name==ADMIN){
+    if(!user) throw new InternalServerError();
+    const role=await Role.findById(user.role);
+    if(!role) throw new InternalServerError();
+    
+    if(role.name==ADMIN){
       return next();
     }
 
@@ -21,7 +24,7 @@ const authorize = (requiredPermission:string) => {
     }
 
     // Check permission
-    if (!user.role.permissions.includes(requiredPermission)) {
+    if (!role.permissions.includes(requiredPermission)) {
       throw new ForbiddenError("Access Denied");
     }
 

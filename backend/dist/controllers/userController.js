@@ -22,7 +22,7 @@ async function deleteUser(req, res, next) {
         await userRepositary.deleteUser(userId);
         res.status(201).json({
             success: true,
-            message: "User created successfully!"
+            message: "User deleted successfully!"
         });
     }
     catch (error) {

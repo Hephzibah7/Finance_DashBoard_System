@@ -31,7 +31,7 @@ async function deleteUser(req:Request, res:Response, next:NextFunction){
         await userRepositary.deleteUser(userId as string);
          res.status(201).json({
         success:true,
-        message:"User created successfully!"
+        message:"User deleted successfully!"
        })
 
     }

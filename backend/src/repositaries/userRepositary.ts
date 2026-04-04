@@ -10,8 +10,9 @@ async function createUser(data:userType){
     const {name, email, password, role}=data;
     const isExist = await User.findOne({email});
     if(isExist) throw new BadRequestError("User already Exists");
+    const roleData = await Role.findOne({name:role});
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser=new User({name, email, password:hashedPassword, role});
+    const newUser=new User({name, email, password:hashedPassword, role:roleData!._id});
     const savedUser=await newUser.save();
 }
 
@@ -20,9 +21,9 @@ async function deleteUser(userId:string){
 }
 
 async function updateRole(userId:string, role:string){
-    const roleData=await Role.findById(userId);
+    const roleData=await Role.findOne({name:role});
     const user=await User.findByIdAndUpdate(userId, 
-        {role:roleData?.id},
+        {role:roleData?._id},
         {new:true}
     )
     return user;
