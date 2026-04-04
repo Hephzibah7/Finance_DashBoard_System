@@ -1,22 +1,13 @@
 import {Request, Response, NextFunction} from "express"
-import dashboardRepositary from "../repositaries/dashboardRepositary.js";
-
+import dashboardService from "../services/dashboardService.js";
 
 async function getSummary(req:Request, res:Response, next:NextFunction){
     try{
-    const summary = await dashboardRepositary.getSummary();
-    const category = await dashboardRepositary.getCategorySummary();
-    const recent = await dashboardRepositary.getRecentRecords();
-    const monthly = await dashboardRepositary.getMonthlyTrends();
+      const data=await dashboardService.getSummary();
 
     return res.status(200).json({
       success: true,
-      data: {
-        summary,
-        category,
-        recent,
-        monthly
-      }
+      data
     });
     }
     catch(error){
