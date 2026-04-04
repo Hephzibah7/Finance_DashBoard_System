@@ -13,7 +13,8 @@ async function createUser(data) {
     const savedUser = await newUser.save();
 }
 async function deleteUser(userId) {
-    await User.findByIdAndDelete(userId);
+    console.log(userId);
+    const data = await User.findByIdAndDelete(userId);
 }
 async function updateRole(userId, role) {
     const roleData = await Role.findOne({ name: role });

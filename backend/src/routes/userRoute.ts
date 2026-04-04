@@ -10,7 +10,7 @@ import { deleteUserValidator, updateRoleValidator } from "../helpers/userValidat
 const router=express.Router();
 router.post("/",verifyToken, authorize(PERMISSIONS.CREATE_USER), loginValidator, validate, userController.createUser);
 router.delete("/:id", verifyToken, authorize(PERMISSIONS.DELETE_USER), deleteUserValidator,validate, userController.deleteUser);
-router.patch("/role/:role", verifyToken, authorize(PERMISSIONS.ASSIGN_ROLE), updateRoleValidator, validate, userController.updateRole);
-router.patch("/status/:status", verifyToken, authorize(PERMISSIONS.CHANGE_USER_STATUS), validate, userController.updateStatus);
+router.patch(":id/role/:role", verifyToken, authorize(PERMISSIONS.ASSIGN_ROLE), updateRoleValidator, validate, userController.updateRole);
+router.patch(":id/status/:status", verifyToken, authorize(PERMISSIONS.CHANGE_USER_STATUS), validate, userController.updateStatus);
 
 export default router;

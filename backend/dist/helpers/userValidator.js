@@ -25,8 +25,14 @@ export const createUserValidator = [
 ];
 export const deleteUserValidator = [
     param('id')
+        .exists()
+        .withMessage('User Id param is required')
+        .bail()
         .notEmpty()
-        .withMessage('User Id is required')
+        .withMessage('User Id cannot be empty')
+        .bail()
+        .isMongoId()
+        .withMessage('Invalid User Id'),
 ];
 export const updateRoleValidator = [
     param('role')

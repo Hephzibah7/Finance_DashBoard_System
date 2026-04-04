@@ -17,7 +17,8 @@ async function createUser(data:userType){
 }
 
 async function deleteUser(userId:string){
-    await User.findByIdAndDelete(userId);
+    console.log(userId);
+    const data=await User.findByIdAndDelete(userId);
 }
 
 async function updateRole(userId:string, role:string){
