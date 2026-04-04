@@ -4,8 +4,8 @@ interface userType{
     name:string,
     email:string,
     password:string,
-    status:string,
-    role:roleType
+    status:string|null,
+    role:roleType|null
 }
 
 export default userType

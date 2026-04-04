@@ -1,12 +1,12 @@
 import {Request, Response, NextFunction} from "express";
-import { ValidationError } from "../errors/AppError.js";
+import { BadRequestError} from "../errors/AppError.js";
 import {validationResult} from "express-validator"
 
 const validate = async (req:Request, res:Response, next:NextFunction) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    throw new ValidationError(errors.array()[0].msg);
+    throw new BadRequestError(errors.array()[0].msg);
   }
 
   next();

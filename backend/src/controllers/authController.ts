@@ -9,8 +9,6 @@ async function login(req:Request, res:Response, next:NextFunction){
     try{
         
         const {email, password}= req.body;
-        const isExist = await User.findOne({email});
-        if(!isExist) throw new BadRequestError("User does not exist");
         var data={
             email,
             password
