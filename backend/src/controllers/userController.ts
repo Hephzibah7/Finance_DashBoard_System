@@ -42,7 +42,9 @@ async function deleteUser(req:Request, res:Response, next:NextFunction){
 
 async function updateRole(req:Request, res:Response, next:NextFunction){
     try{
-        const {userId, role} = req.params;
+        const userId = req.params.id;
+        const role= req.params.role;
+        console.log(userId);
         const user=userRepositary.updateRole(userId as string,role as string);
         if(!user) throw new BadRequestError("Role could not be updated! Try again later");
         res.status(201).json({
