@@ -7,6 +7,7 @@ import authRoute from "./routes/authRoute.js";
 import { connectDB } from "./configs/db.js";
 import userRoute from "./routes/userRoute.js";
 import recordRoute from "./routes/recordRoute.js";
+import dashboardRoute from "./routes/dashboardRoute.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use(cors({
 app.use('/api', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/record', recordRoute);
+app.use('/api/dashboard', dashboardRoute);
 // 404 AFTER routes
 app.use((req, res, next) => {
     next(new NotFoundError(`Cannot ${req.method} ${req.url}`));
