@@ -5,9 +5,11 @@ import { HEALTH } from "../utils/constants.js";
 import { param } from 'express-validator';
 
 export const createRecordValidator = [
+
   check('amount', 'Please Enter a valid amount value')
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isNumeric(),
 
   check('type')
     .notEmpty()
