@@ -29,7 +29,7 @@ async function deleteUser(req:Request, res:Response, next:NextFunction){
     try{
         const userId=req.params.id;
         await userRepositary.deleteUser(userId as string);
-         res.status(201).json({
+         res.status(204).json({
         success:true,
         message:"User deleted successfully!"
        })
@@ -45,7 +45,7 @@ async function updateRole(req:Request, res:Response, next:NextFunction){
         const userId = req.params.id;
         const role= req.params.role;
         await userRepositary.updateRole(userId as string,role as string);
-        res.status(201).json({
+        res.status(200).json({
         success:true,
         message:"Role updated successfully!"
        })
@@ -61,7 +61,7 @@ async function updateStatus(req:Request, res:Response, next:NextFunction){
         const userId=req.params.id;
         const status=req.params.status;
         await userRepositary.updateStatus(userId as string, status as string);
-        res.status(201).json({
+        res.status(200).json({
         success:true,
         message:"Status updated successfully!"
        })

@@ -19,7 +19,7 @@ async function deleteUser(req, res, next) {
     try {
         const userId = req.params.id;
         await userRepositary.deleteUser(userId);
-        res.status(201).json({
+        res.status(204).json({
             success: true,
             message: "User deleted successfully!"
         });
@@ -33,7 +33,7 @@ async function updateRole(req, res, next) {
         const userId = req.params.id;
         const role = req.params.role;
         await userRepositary.updateRole(userId, role);
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Role updated successfully!"
         });
@@ -47,7 +47,7 @@ async function updateStatus(req, res, next) {
         const userId = req.params.id;
         const status = req.params.status;
         await userRepositary.updateStatus(userId, status);
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Status updated successfully!"
         });

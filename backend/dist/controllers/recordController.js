@@ -39,7 +39,7 @@ async function getAllRecord(req, res, next) {
         const data = await recordRepositary.getAllRecord(req.user, filters);
         if (!data)
             throw new InternalServerError();
-        res.status(201).json({
+        res.status(200).json({
             record: data,
             success: true,
             message: "Record fetched successfully!"
@@ -53,7 +53,7 @@ async function deleteRecord(req, res, next) {
     try {
         const recordId = req.params.id;
         await recordRepositary.deleteRecord(recordId);
-        res.status(201).json({
+        res.status(204).json({
             success: true,
             message: "Record deleted successfully!"
         });
@@ -67,7 +67,7 @@ async function updateRecord(req, res, next) {
         const data = req.body;
         const recordId = req.params.id;
         await recordRepositary.updateRecord(recordId, data);
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "Record updated successfully!"
         });

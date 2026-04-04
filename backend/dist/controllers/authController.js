@@ -7,7 +7,7 @@ async function login(req, res, next) {
             password
         };
         const userCredentials = await authRepositary.loginUser(data);
-        res.status(201).json({
+        res.status(200).json({
             user: userCredentials,
             success: true,
             message: "Login successful"
