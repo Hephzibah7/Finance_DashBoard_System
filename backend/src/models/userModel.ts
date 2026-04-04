@@ -12,7 +12,7 @@ const userSchema=new mongoose.Schema({
     status: {
     type: String,
     enum: [ACTIVE, INACTIVE],
-    default: 'active'
+    default: ACTIVE
   }
 
 })

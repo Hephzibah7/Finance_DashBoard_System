@@ -11,8 +11,9 @@ async function createUser(data:userType){
     const isExist = await User.findOne({email});
     if(isExist) throw new BadRequestError("User already Exists");
     const roleData = await Role.findOne({name:role});
+    if(!roleData) throw new BadRequestError("Invalid Role");
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser=new User({name, email, password:hashedPassword, role:roleData!._id});
+    const newUser=new User({name, email, password:hashedPassword, role:roleData._id});
     const savedUser=await newUser.save();
 }
 
