@@ -19,11 +19,9 @@ async function deleteUser(userId) {
 async function updateRole(userId, role) {
     const roleData = await Role.findOne({ name: role });
     const user = await User.findByIdAndUpdate(userId, { role: roleData?._id }, { new: true });
-    return user;
 }
 async function updateStatus(userId, status) {
     const user = await User.findByIdAndUpdate(userId, { status: status }, { new: true });
-    return user;
 }
 const userRepositary = {
     createUser: createUser,

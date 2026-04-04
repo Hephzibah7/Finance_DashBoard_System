@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ACTIVE, INACTIVE } from "../utils/constants.js";
 
 const userSchema=new mongoose.Schema({
     name: {type:String, required:true},
@@ -10,7 +11,7 @@ const userSchema=new mongoose.Schema({
     },
     status: {
     type: String,
-    enum: ['active', 'inactive'],
+    enum: [ACTIVE, INACTIVE],
     default: 'active'
   }
 

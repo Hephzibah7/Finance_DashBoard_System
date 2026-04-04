@@ -44,11 +44,8 @@ async function updateRole(req:Request, res:Response, next:NextFunction){
     try{
         const userId = req.params.id;
         const role= req.params.role;
-        console.log(userId);
-        const user=userRepositary.updateRole(userId as string,role as string);
-        if(!user) throw new BadRequestError("Role could not be updated! Try again later");
+        await userRepositary.updateRole(userId as string,role as string);
         res.status(201).json({
-        user:user,
         success:true,
         message:"Role updated successfully!"
        })
@@ -61,11 +58,10 @@ async function updateRole(req:Request, res:Response, next:NextFunction){
 
 async function updateStatus(req:Request, res:Response, next:NextFunction){
     try{
-        const {userId, status}=req.params;
-        const user=userRepositary.updateStatus(userId as string, status as string);
-        if(!user) throw new BadRequestError("Status could not be updated! Try again later");
+        const userId=req.params.id;
+        const status=req.params.status;
+        await userRepositary.updateStatus(userId as string, status as string);
         res.status(201).json({
-        user:user,
         success:true,
         message:"Status updated successfully!"
        })

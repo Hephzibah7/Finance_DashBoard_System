@@ -1,4 +1,3 @@
-import { BadRequestError } from "../errors/AppError.js";
 import userRepositary from "../repositaries/userRepositary.js";
 async function createUser(req, res, next) {
     try {
@@ -33,12 +32,8 @@ async function updateRole(req, res, next) {
     try {
         const userId = req.params.id;
         const role = req.params.role;
-        console.log(userId);
-        const user = userRepositary.updateRole(userId, role);
-        if (!user)
-            throw new BadRequestError("Role could not be updated! Try again later");
+        await userRepositary.updateRole(userId, role);
         res.status(201).json({
-            user: user,
             success: true,
             message: "Role updated successfully!"
         });
@@ -49,12 +44,10 @@ async function updateRole(req, res, next) {
 }
 async function updateStatus(req, res, next) {
     try {
-        const { userId, status } = req.params;
-        const user = userRepositary.updateStatus(userId, status);
-        if (!user)
-            throw new BadRequestError("Status could not be updated! Try again later");
+        const userId = req.params.id;
+        const status = req.params.status;
+        await userRepositary.updateStatus(userId, status);
         res.status(201).json({
-            user: user,
             success: true,
             message: "Status updated successfully!"
         });

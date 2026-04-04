@@ -27,7 +27,7 @@ async function updateRole(userId:string, role:string){
         {role:roleData?._id},
         {new:true}
     )
-    return user;
+    
 }
 
 async function updateStatus(userId:string, status:string){
@@ -35,7 +35,7 @@ async function updateStatus(userId:string, status:string){
         {status:status},
         {new:true}
     )
-    return user;
+    
 }
 
 const userRepositary={

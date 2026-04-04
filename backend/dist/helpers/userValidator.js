@@ -1,7 +1,7 @@
 import { check } from 'express-validator';
 import { BadRequestError } from '../errors/AppError.js';
 import { param } from 'express-validator';
-import { ANALYST, VIEWER } from '../utils/constants.js';
+import { ACTIVE, ANALYST, INACTIVE, VIEWER } from '../utils/constants.js';
 export const createUserValidator = [
     check('email', 'Please Enter a valid E-mail Address')
         .isEmail()
@@ -63,6 +63,6 @@ export const updateStatusValidator = [
     param('status')
         .notEmpty()
         .withMessage('Status is required')
-        .isIn(["inactive", "active"])
+        .isIn([ACTIVE, INACTIVE])
         .withMessage('Invalid status')
 ];
