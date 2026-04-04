@@ -19,7 +19,7 @@ async function deleteUser(req, res, next) {
     try {
         const userId = req.params.id;
         await userRepositary.deleteUser(userId);
-        res.status(204).json({
+        res.status(200).json({
             success: true,
             message: "User deleted successfully!"
         });

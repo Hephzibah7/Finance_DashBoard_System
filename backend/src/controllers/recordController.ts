@@ -61,7 +61,7 @@ async function deleteRecord(req:Request, res:Response, next:NextFunction){
     try{
         const recordId = req.params.id;
         await recordRepositary.deleteRecord(recordId as string);
-         res.status(204).json({
+         res.status(200).json({
         success:true,
         message:"Record deleted successfully!"
        })
