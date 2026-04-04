@@ -14,10 +14,17 @@ async function getAllRecord(userId:string){
 async function deleteRecord(recordId:string){
     await Record.findByIdAndDelete(recordId);
 }
+async function updateRecord(recordId:string, data:any){
+    await Record.findByIdAndUpdate(recordId,
+        data,
+        {new:true}
+    )
+}
 const recordRepositary={
     createRecord:createRecord,
     getAllRecord:getAllRecord,
     deleteRecord:deleteRecord,
+    updateRecord:updateRecord
 }
 
 export default recordRepositary;

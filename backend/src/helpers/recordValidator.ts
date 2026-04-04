@@ -4,7 +4,7 @@ import { check } from 'express-validator';
 import { HEALTH } from "../utils/constants.js";
 import { param } from 'express-validator';
 
-export const createUserValidator = [
+export const createRecordValidator = [
   check('amount', 'Please Enter a valid amount value')
     .not()
     .isEmpty(),
@@ -35,6 +35,18 @@ export const createUserValidator = [
 ];
 
 export const deleteRecordValidator = [
+  param('id')
+    .exists()
+    .withMessage('Record Id param is required')
+    .bail()
+    .notEmpty()
+    .withMessage('Record Id cannot be empty')
+    .bail()
+    .isMongoId()
+    .withMessage('Invalid Record Id'),
+];
+
+export const updateRecordValidator = [
   param('id')
     .exists()
     .withMessage('Record Id param is required')

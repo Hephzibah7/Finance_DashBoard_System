@@ -49,9 +49,24 @@ async function deleteRecord(req, res, next) {
         next(error);
     }
 }
+async function updateRecord(req, res, next) {
+    try {
+        const data = req.body;
+        const recordId = req.params.id;
+        await recordRepositary.updateRecord(recordId, data);
+        res.status(201).json({
+            success: true,
+            message: "Record updated successfully!"
+        });
+    }
+    catch (error) {
+        next(error);
+    }
+}
 const recordController = {
     createRecord: createRecord,
     getAllRecord: getAllRecord,
-    deleteRecord: deleteRecord
+    deleteRecord: deleteRecord,
+    updateRecord: updateRecord
 };
 export default recordController;

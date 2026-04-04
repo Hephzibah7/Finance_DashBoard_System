@@ -58,10 +58,26 @@ async function deleteRecord(req:Request, res:Response, next:NextFunction){
     }
 }
 
+async function updateRecord(req:Request, res:Response,next:NextFunction){
+    try{
+        const data=req.body;
+        const recordId=req.params.id;
+        await recordRepositary.updateRecord(recordId as string,data);
+         res.status(201).json({
+        success:true,
+        message:"Record updated successfully!"
+       })
+    }
+    catch(error){
+        next(error);
+    }
+}
+
 const recordController={
     createRecord:createRecord,
     getAllRecord:getAllRecord,
-    deleteRecord:deleteRecord
+    deleteRecord:deleteRecord,
+    updateRecord:updateRecord
 
 }
 
