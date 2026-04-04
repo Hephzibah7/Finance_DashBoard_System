@@ -23,7 +23,20 @@ async function createRecord(req, res, next) {
 }
 async function getAllRecord(req, res, next) {
     try {
-        const data = await recordRepositary.getAllRecord(req.user);
+        const filters = {};
+        if (req.query.type) {
+            filters.type = req.query.type;
+        }
+        if (req.query.category) {
+            filters.category = req.query.category;
+        }
+        if (req.query.startDate && req.query.endDate) {
+            filters.date = {
+                $gte: new Date(req.query.startDate),
+                $lte: new Date(req.query.endDate)
+            };
+        }
+        const data = await recordRepositary.getAllRecord(req.user, filters);
         if (!data)
             throw new InternalServerError();
         res.status(201).json({

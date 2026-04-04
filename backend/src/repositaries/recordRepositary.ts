@@ -6,8 +6,8 @@ async function createRecord(data:recordType){
     await newRecord.save();
 }
 
-async function getAllRecord(userId:string){
-    const data=await Record.find({ userId: userId}).sort({ date: -1 });
+async function getAllRecord(userId:string, filters:any){
+    const data=await Record.find({ userId: userId, ...filters}).sort({ date: -1 });
     return data;
 }
 

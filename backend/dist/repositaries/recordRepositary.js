@@ -3,8 +3,8 @@ async function createRecord(data) {
     const newRecord = new Record(data);
     await newRecord.save();
 }
-async function getAllRecord(userId) {
-    const data = await Record.find({ userId: userId }).sort({ date: -1 });
+async function getAllRecord(userId, filters) {
+    const data = await Record.find({ userId: userId, ...filters }).sort({ date: -1 });
     return data;
 }
 async function deleteRecord(recordId) {
