@@ -1,4 +1,5 @@
 import Record from "../models/recordModel.js";
+import { EXPENSE, INCOME } from "../utils/constants.js";
 async function getSummary() {
     const result = await Record.aggregate([
         {
@@ -8,12 +9,13 @@ async function getSummary() {
             }
         }
     ]);
+    console.log(result);
     let income = 0;
     let expense = 0;
     result.forEach(item => {
-        if (item._id === "income")
+        if (item._id === INCOME)
             income = item.total;
-        if (item._id === "expense")
+        if (item._id === EXPENSE)
             expense = item.total;
     });
     return {
@@ -36,14 +38,22 @@ async function getMonthlyTrends() {
     return await Record.aggregate([
         {
             $group: {
-                _id: { $month: "$date" },
-                total: { $sum: "$amount" }
+                _id: {
+                    month: { $month: "$date" },
+                    type: "$type"
+                },
+                total: {
+                    $sum: "$amount" // ✅ if amount is string
+                }
             }
         },
-        { $sort: { "_id": 1 } }
+        {
+            $sort: {
+                "_id.month": 1
+            }
+        }
     ]);
 }
-;
 async function getRecentRecords() {
     return await Record.find().sort({ createdAt: -1 }).limit(5);
 }

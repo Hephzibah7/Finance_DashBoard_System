@@ -1,5 +1,5 @@
 interface recordType{
-    amount:string,
+    amount:Number,
     type:string,
     category:string,
     description:string,

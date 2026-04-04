@@ -5,7 +5,7 @@ const recordSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    amount: String,
+    amount: Number,
     type: {
         type: String,
         enum: [INCOME, EXPENSE],
