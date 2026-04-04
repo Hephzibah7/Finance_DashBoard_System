@@ -48,7 +48,7 @@ async function getMonthlyTrends() {
           type: "$type"
         },
         total: {
-          $sum: "$amount" // ✅ if amount is string
+          $sum: "$amount" 
         }
       }
     },
