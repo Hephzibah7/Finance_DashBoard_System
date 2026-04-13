@@ -8,13 +8,18 @@ import { connectDB } from "./configs/db.js";
 import userRoute from "./routes/userRoute.js"
 import recordRoute from "./routes/recordRoute.js"
 import dashboardRoute from "./routes/dashboardRoute.js"
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./configs/swagger.js";
+
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-const FRONTEND_URL = "http://localhost:3000";
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 app.use(cors({
   origin: FRONTEND_URL,
