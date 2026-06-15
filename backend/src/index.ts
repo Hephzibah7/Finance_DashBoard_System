@@ -11,7 +11,7 @@ import dashboardRoute from "./routes/dashboardRoute.js"
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./configs/swagger.js";
 import redisClient from "./configs/redis.js";
-
+import testRoutes from "./routes/redisRoute.js"
 dotenv.config();
 
 
@@ -33,6 +33,7 @@ app.use('/api', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/record', recordRoute);
 app.use('/api/dashboard', dashboardRoute);
+app.use('',testRoutes);
 
 // 404 AFTER routes
 app.use((req, res, next) => {
