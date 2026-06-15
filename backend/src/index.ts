@@ -10,9 +10,10 @@ import recordRoute from "./routes/recordRoute.js"
 import dashboardRoute from "./routes/dashboardRoute.js"
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./configs/swagger.js";
-
+import redisClient from "./configs/redis.js";
 
 dotenv.config();
+
 
 const app = express();
 app.use(express.json());
@@ -47,6 +48,7 @@ const port = 9002;
 const startServer = async () => {
   try {
     await connectDB();
+    await redisClient.connect();
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
     });
